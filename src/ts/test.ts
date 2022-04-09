@@ -7,16 +7,26 @@ init();
 function init() {
     const scene = new THREE.Scene();
     const camera = new THREE.PerspectiveCamera(
-        70,
+        100,
         window.innerWidth / window.innerHeight,
         0.01,
         10
     );
     camera.position.z = 10;
-    camera.position.y = -4;
-    camera.position.x = 1;
+    camera.position.y = 0;
+    camera.position.x = 0;
 
-    const light = new THREE.AmbientLight(0x404040); // soft white light
+    const light = new THREE.AmbientLight(0x404040, 0.5); // soft white light
+    const pointLight1 = new THREE.PointLight(0x404040, 1, 0, 2); // soft white light
+    const pointLight2 = new THREE.PointLight(0x404040, 1, 0, 2); // soft white light
+
+    pointLight1.position.z = 12;
+    pointLight1.position.x = 7;
+    pointLight2.position.z = -12;
+    pointLight2.position.x = -7;
+
+    scene.add(pointLight1);
+    scene.add(pointLight2);
     scene.add(light);
 
     const taterTexture = new THREE.TextureLoader().load(
@@ -34,6 +44,9 @@ function init() {
                 child.material = taterSkin;
             }
         });
+
+        obj.rotateX(80);
+        obj.localToWorld(new THREE.Vector3());
 
         scene.add(obj);
     });
